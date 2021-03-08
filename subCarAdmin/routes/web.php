@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Cors;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,12 @@ Route::get('/', function () {
 });
 
 //Route::resource('admin', AdminController::class);
-Route::POST('admin', [AdminController::class, 'store']);
-Route::GET('admin', [AdminController::class, 'index']);
+Route::post('admin', [AdminController::class, 'store'])
+    ->middleware(Cors::class);
+Route::get('admin', [AdminController::class, 'index'])
+    ->middleware(Cors::class);
 
-Route::put('admin/{admin}', [AdminController::class, 'update']);
-Route::delete('admin/{admin}', [AdminController::class, 'destroy']);
-    //->middleware(Cors::class);
+Route::put('admin/{admin}', [AdminController::class, 'update'])
+    ->middleware(Cors::class);
+Route::delete('admin/{admin}', [AdminController::class, 'destroy'])
+    ->middleware(Cors::class);

@@ -1,9 +1,8 @@
 [
   {
-    "name": "index",
-    "path": "/",
-    "component": "/var/www/adminboard/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_23bbd0e0"
+    "name": "",
+    "path": "",
+    "component": "/var/www/node_modules/@nuxt/vue-app/template/pages/index.vue",
+    "_name": "_57388c17"
   }
 ]

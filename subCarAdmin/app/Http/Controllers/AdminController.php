@@ -24,24 +24,20 @@ class AdminController extends Controller
         $sevenMonthAgo = date('Y-m', strtotime("7 month"));
         $result = [];
         if ($today === "1"){
-                for ($i = 0, $len = count($calender); $i <$len; $i ++){
-                    if(empty($calender[$i]->y_m)){
-                        $result[] = "true";
-                    } else {
-                        $result[] ="false";
-                    }
+            for ($i = 0, $len = count($calender); $i <$len; $i ++){
+                if(empty($calender[$i]->y_m)){
+                    $result[] = "true";
+                } else {
+                    $result[] ="false";
+                }
             }
+        } else {
+            $newCalender = new Calender;
+            $newCalender->car_id = $calender[$i]->car_id;
+            $newCalender->y_m = $sevenMonthAgo;
+            $newCalender->timestamps = false;
+            $newCalender->save();
         }
-
-        
-        
-         else {
-                $newCalender = new Calender;
-                $newCalender->car_id = $calender[$i]->car_id;
-                $newCalender->y_m = $sevenMonthAgo;
-                $newCalender->timestamps = false;
-                $newCalender->save();
-            }
         }
         */
         $items = [$cars, $calender];
@@ -67,9 +63,6 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //header('Content-Type: application/json; charset=utf-8');
-        //header("Access-Control-Allow-Origin: *");  //CORS
-        //header("Access-Control-Allow-Headers: Origin, X-Requested-With");
         $this->validate($request, Car::$rules);
         $car = new Car;
         $form = $request->all();
@@ -87,7 +80,9 @@ class AdminController extends Controller
             $calender->timestamps = false;
             $calender->fill($calenderSet)->save();
         }
-        return response()->json($car);
+        $r_car = Car::all();
+        $r_calender = Calender::all();
+        return [$r_car, $r_calender];
     }
 
     /**
@@ -129,10 +124,6 @@ class AdminController extends Controller
             $end = $request->dateStart;
         }
 
-        /**
-         * @return array $result
-         * '_' + 日
-         */
         function findTarget($start, $end){
             $targetDays = ((int) $end - (int) $start) + 1;
             $result = [];
@@ -159,7 +150,10 @@ class AdminController extends Controller
             echo $target->$day;
         }
         $target->save();
-        return $target;
+
+        $r_car = Car::all();
+        $r_calender = Calender::all();
+        return [$r_car, $r_calender];
     }
 
     /**
@@ -172,5 +166,8 @@ class AdminController extends Controller
     {
         $car = Car::find($id)->delete();
         $calender = Calender::where('car_id',$id)->get()->each->delete();
+        $r_car = Car::all();
+        $r_calender = Calender::all();
+        return [$r_car, $r_calender];
     }
 }
