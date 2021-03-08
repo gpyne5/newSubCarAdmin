@@ -28,7 +28,7 @@ export default{
             reservation: '',
             date: new Date().toISOString().slice(0,7), // 2021-02 のような文字列
             currentDate: new Date().toISOString().slice(0,7),
-            keys: [],
+            carId: [],
             onClick: {},
             show: false,
             selectCell: false,
@@ -52,22 +52,27 @@ export default{
         mousedown(e) {
             e.target.style.backgroundColor = 'rgba(0,123,255,0.2)';
             this.$store.commit('selectCar', e.path[1].id);
-            this.onClick[Number(e.target.id)] = e.target.outerText;
-            this.keys = Object.keys(this.onClick);
-            if(this.keys.length === 2){
-                this.keys.sort();
+            //this.onClick[Number(e.target.id)] = e.target.outerText;
+            this.carId.push(e.target.id)
+            if(this.carId[0] === e.target.id){
+                console.log('good')
+            }
+            console.log(this.onClick)
+            console.log(this.carId)
+            if(this.carId.length === 2){
+                this.carId.sort();
                 this.pos = {
                     top: e.pageY + 'px',
                     left: e.pageX + 'px',
                     position: 'absolute'
                 };
-                // this.keys...○日〜○日の配列
-                this.$store.commit('selectDays', this.keys)
+                // this.carId...○日〜○日の配列
+                this.$store.commit('selectDays', this.carId)
                 this.$store.commit('putForm', true)
                 this.$store.commit('pos', this.pos)
             }
-            if(this.keys.length === 3){
-                this.keys.splice(1, 1);
+            if(this.carId.length === 3){
+                this.carId.splice(1, 1);
             };
         },
     },

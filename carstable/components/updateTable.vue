@@ -1,7 +1,6 @@
 <template>
 <div class="post-form" v-show="putForm" v-bind:style="[pos]">
     <div  class="form-position">
-        <span class="selected-day">{{selectedDays[0]}}日 〜 {{selectedDays[1]}}日</span>
         <input type="text" v-model="customerName">
         <input type="submit" v-on:click="click" value="予約">
     </div>
@@ -34,6 +33,7 @@ export default{
             this.$store.dispatch('putData', payload);
             this.$store.commit('putForm', false);
             this.$store.commit('cellColor', { backgroundColor: 'rgb(255, 255, 255)' })
+            this.$store.commit('selectDays', [])
         },
     },
     
