@@ -7,6 +7,7 @@ export const state = () => {
         selectedCarId: null, //選択した車のid
         putForm: false,
         pos: { left: 0, top: 0 },
+        cellColor: {},
     }
 }
 
@@ -29,7 +30,11 @@ export const mutations = {
     },
     pos(state, payload) {
         state.pos = payload
+    },
+    cellColor(state, payload) {
+        state.cellColor = payload
     }
+    
 }
 
 export const actions = {

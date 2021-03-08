@@ -7,7 +7,7 @@
             </thead>
             <tbody>
                 <tr v-for="(car, index) in cars" v-bind:id="car.id" v-bind:key="index"><th>{{ car.car_name }}</th>
-                <td v-for="(reservation, key) in makeCalender(car)" v-on:mousedown="mousedown" v-bind:id="key" v-bind:key="key" class="td01">{{ reservation }}</td></tr>
+                <td v-for="(reservation, key) in makeCalender(car)" v-on:mousedown="mousedown" v-bind:id="key" v-bind:key="key" class="td01" v-bind:style="cellColor">{{ reservation }}</td></tr>
             </tbody>
         </table>
     </div>
@@ -47,7 +47,7 @@ export default{
             }
         };
     },
-    computed:  mapState([ 'cars', 'cale', 'workingMonth' ]),
+    computed:  mapState([ 'cars', 'cale', 'workingMonth', 'cellColor' ]),
     methods: {
         mousedown(e) {
             e.target.style.backgroundColor = 'rgba(0,123,255,0.2)';

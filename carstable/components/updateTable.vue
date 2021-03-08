@@ -32,7 +32,8 @@ export default{
                 data: data
             }
             this.$store.dispatch('putData', payload);
-            this.$store.commit('putForm', false)
+            this.$store.commit('putForm', false);
+            this.$store.commit('cellColor', { backgroundColor: 'rgb(255, 255, 255)' })
         },
     },
     
