@@ -60,7 +60,7 @@ export default{
     },
     computed:  mapState([ 'cars', 'cale' ]),
     methods: {
-        mousedown: function(e) {
+        mousedown(e) {
             e.target.style.backgroundColor = 'rgba(0,123,255,0.2)';
             this.selectedCarId = e.path[1].id;
             this.onClick[Number(e.target.id)] = e.target.outerText;
@@ -78,7 +78,7 @@ export default{
                 this.keys.splice(1, 1);
             };
         },
-        async click() {
+        click() {
             let data = {
                 customerName: this.customerName,
                 currentMonth: this.workingMonth,
@@ -90,6 +90,9 @@ export default{
                 data: data
             }
             this.$store.dispatch('putData', payload);
+            this.show = false;
+            
+                
         },
     },
     watch: {

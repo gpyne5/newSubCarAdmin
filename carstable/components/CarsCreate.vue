@@ -25,12 +25,16 @@ export default {
         };
     },
     methods: {
-        async onclick() {
+        async onclick(e) {
             let data = {
                 'car_name': this.carName,
                 'car_number': this.carNumber,
             }
+            console.log(e);
             this.$store.dispatch('postData', data);
+            this.onoff();
+            this.carName = '';
+            this.carNumber = null;
         },
         onoff: function() {
             if(this.flag) {

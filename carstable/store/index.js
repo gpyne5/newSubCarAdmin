@@ -32,7 +32,10 @@ export const actions = {
 
     async putData(context, payload){
         await this.$axios.put('http://localhost/admin/' + payload.id, payload.data)
-            .then(res => context.commit('setData',res))
+            .then(res => {
+                context.commit('setData',res)
+                location.reload();
+            })
             .catch(e => console.log(e))
     },
 }

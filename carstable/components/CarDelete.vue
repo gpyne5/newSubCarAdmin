@@ -23,6 +23,7 @@ export default {
     methods: {
         onclick: function() {
             this.$store.dispatch('deleteData', this.deleteCar);
+            this.deleteCar = '';
             this.onoff();
         },
 	onoff: function() {
