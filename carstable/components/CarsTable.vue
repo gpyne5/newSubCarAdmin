@@ -11,38 +11,27 @@
             </tbody>
         </table>
     </div>
-    <div class="post-form" v-show="show" v-bind:style="[pos]">
-        <div  class="form-position">
-            <span class="selected-day">{{keys[0]}}日 〜 {{keys[1]}}日</span>
-            <input type="text" v-model="customerName">
-            <input type="submit" v-on:click="click" value="予約">
-        </div>
-    </div>
+    <updateTable></updateTable>
 </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import updateTable from '../components/updateTable.vue'
 
 export default{
     name: 'CarsTable',
-    props: ['days', 'workingmonth'],
+    components: { updateTable },
+    props: ['days'],
     data: function() {
         return {
             reservation: '',
-            customerName: '',
-            selectedCarId: null,
             date: new Date().toISOString().slice(0,7), // 2021-02 のような文字列
             currentDate: new Date().toISOString().slice(0,7),
-            workingMonth: this.workingmonth, 
             keys: [],
             onClick: {},
             show: false,
             selectCell: false,
-            pos: {
-                left: 0,
-                top: 0
-                },
             makeCalender: function(car) {
                 let result = {};
                 for(let j=0,len=this.cale.length;j<len;j++){
@@ -58,48 +47,30 @@ export default{
             }
         };
     },
-    computed:  mapState([ 'cars', 'cale' ]),
+    computed:  mapState([ 'cars', 'cale', 'workingMonth' ]),
     methods: {
         mousedown(e) {
             e.target.style.backgroundColor = 'rgba(0,123,255,0.2)';
-            this.selectedCarId = e.path[1].id;
+            this.$store.commit('selectCar', e.path[1].id);
             this.onClick[Number(e.target.id)] = e.target.outerText;
             this.keys = Object.keys(this.onClick);
             if(this.keys.length === 2){
                 this.keys.sort();
-                this.show = true;
                 this.pos = {
                     top: e.pageY + 'px',
                     left: e.pageX + 'px',
                     position: 'absolute'
                 };
+                // this.keys...○日〜○日の配列
+                this.$store.commit('selectDays', this.keys)
+                this.$store.commit('putForm', true)
+                this.$store.commit('pos', this.pos)
             }
             if(this.keys.length === 3){
                 this.keys.splice(1, 1);
             };
         },
-        click() {
-            let data = {
-                customerName: this.customerName,
-                currentMonth: this.workingMonth,
-                dateStart: this.keys[0],
-                dateEnd: this.keys[1]
-            };
-            let payload = {
-                id : this.selectedCarId,
-                data: data
-            }
-            this.$store.dispatch('putData', payload);
-            this.show = false;
-            
-                
-        },
     },
-    watch: {
-        workingmonth: function() {
-            this.workingMonth = this.workingmonth; //親から渡されたpropsは変化しているのでwatchで観測したら更新するようにしている
-        },
-    }
 }
 </script>
 

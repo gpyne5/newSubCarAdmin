@@ -147,7 +147,6 @@ class AdminController extends Controller
 
         foreach((array) $period as $day){
             $target->$day = $request->customerName;
-            echo $target->$day;
         }
         $target->save();
 

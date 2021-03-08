@@ -19,13 +19,15 @@ export default {
             //親にデータを返す処理 workingMonthを変える処理　
             this.calDate.setMonth(this.calDate.getMonth() + 1);
             this.workingMonth = this.calDate.toISOString().slice(0,7);
-            this.$emit('change-month', this.workingMonth);
+            this.$store.commit('changeMonth', this.workingMonth);
+            //this.$emit('change-month', this.workingMonth);
         },
         beforeMonth: function() {
             //親にデータを返す処理 workingMonthを変える処理
             this.calDate.setMonth(this.calDate.getMonth() - 1);
             this.workingMonth = this.calDate.toISOString().slice(0,7);
-            this.$emit('change-month', this.workingMonth);
+            this.$store.commit('changeMonth', this.workingMonth);
+            //this.$emit('change-month', this.workingMonth);
         }
     },
     watch: {

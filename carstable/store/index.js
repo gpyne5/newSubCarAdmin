@@ -1,7 +1,12 @@
 export const state = () => {
     return {
         cars: [],
-        cale: []
+        cale: [],
+        workingMonth: new Date().toISOString().slice(0,7),
+        selectedDays: [], //選択した期間
+        selectedCarId: null, //選択した車のid
+        putForm: false,
+        pos: { left: 0, top: 0 },
     }
 }
 
@@ -9,6 +14,21 @@ export const mutations = {
     setData(state, payload) {
         state.cars = payload.data[0],
         state.cale = payload.data[1]
+    },
+    changeMonth(state, payload) {
+        state.workingMonth = payload
+    },
+    selectDays(state, payload) {
+        state.selectedDays = payload
+    },
+    selectCar(state,payload) {
+        state.selectedCarId = payload
+    },
+    putForm(state,payload) {
+        state.putForm = payload
+    },
+    pos(state, payload) {
+        state.pos = payload
     }
 }
 
@@ -32,10 +52,7 @@ export const actions = {
 
     async putData(context, payload){
         await this.$axios.put('http://localhost/admin/' + payload.id, payload.data)
-            .then(res => {
-                context.commit('setData',res)
-                location.reload();
-            })
+            .then(res => context.commit('setData',res))
             .catch(e => console.log(e))
     },
 }
