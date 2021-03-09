@@ -3,7 +3,7 @@
     <div>
         <table class="table">
             <thead>
-                <tr><th></th><th v-for="(i, index) in days" v-bind:key="index">{{ i }}</th></tr>
+                <tr><th></th><th v-for="(i, index) in daysCount" v-bind:key="index">{{ i }}</th></tr>
             </thead>
             <tbody>
                 <tr v-for="(car, index) in cars" v-bind:id="car.id" v-bind:key="index"><th>{{ car.car_name }}</th>
@@ -11,6 +11,7 @@
             </tbody>
         </table>
     </div>
+    {{ Number(daysCount) }}
     <updateTable></updateTable>
 </div>
 </template>
@@ -26,7 +27,7 @@ export default{
     data: function() {
         return {
             reservation: '',
-            date: new Date().toISOString().slice(0,7), // 2021-02 のような文字列
+            //date: new Date().toISOString().slice(0,7), // 2021-02 のような文字列
             currentDate: new Date().toISOString().slice(0,7),
             carId: [],
             onClick: {},
@@ -47,7 +48,7 @@ export default{
             }
         };
     },
-    computed:  mapState([ 'cars', 'cale', 'workingMonth', 'cellColor' ]),
+    computed:  mapState([ 'cars', 'cale', 'workingMonth', 'cellColor' ,'daysCount']),
     methods: {
         mousedown(e) {
             e.target.style.backgroundColor = 'rgba(0,123,255,0.2)';

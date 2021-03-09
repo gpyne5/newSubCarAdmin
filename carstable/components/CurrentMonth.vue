@@ -3,11 +3,14 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
     name: 'CurrenMonth',
+    computed: mapState([ 'date', 'daysCount' ]),
     data: function() {
         return {
-            date: new Date(),
+            //date: new Date(),
             currentDate: new Date().toISOString().slice(0,7),
             workingMonth: new Date().toISOString().slice(0,7),
             calDate: new Date(),
@@ -20,6 +23,8 @@ export default {
             this.calDate.setMonth(this.calDate.getMonth() + 1);
             this.workingMonth = this.calDate.toISOString().slice(0,7);
             this.$store.commit('changeMonth', this.workingMonth);
+            this.$store.commit('changeDate', 1);
+            console.log(this.daysCount)
             //this.$emit('change-month', this.workingMonth);
         },
         beforeMonth: function() {
@@ -27,6 +32,7 @@ export default {
             this.calDate.setMonth(this.calDate.getMonth() - 1);
             this.workingMonth = this.calDate.toISOString().slice(0,7);
             this.$store.commit('changeMonth', this.workingMonth);
+            this.$store.commit('changeDate', -1);
             //this.$emit('change-month', this.workingMonth);
         }
     },

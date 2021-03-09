@@ -2,6 +2,8 @@ export const state = () => {
     return {
         cars: [],
         cale: [],
+        date: new Date().getMonth() + 1,
+        daysCount: 0,
         workingMonth: new Date().toISOString().slice(0,7),
         selectedDays: [], //選択した期間
         selectedCarId: null, //選択した車のid
@@ -33,7 +35,16 @@ export const mutations = {
     },
     cellColor(state, payload) {
         state.cellColor = payload
-    }
+    },
+    changeDate(state, payload) {
+        let now = state.date.getMonth() + payload
+        state.date.setMonth(now + payload)
+        let count = state.date
+        count.setDate(0)
+        console.log(count.getDate())
+        state.daysCount = count.getDate()
+    },
+    
     
 }
 
