@@ -38,7 +38,7 @@ export default{
                 for(let j=0,len=this.cale.length;j<len;j++){
                     if(this.cale[j].y_m === this.workingMonth){
                         if(this.cale[j].car_id === car.id){
-                            for(let i=1,len=this.days+1;i<len;i++){
+                            for(let i=1,len=this.daysCount+1;i<len;i++){
                                 result[i] = this.cale[j]['_' + i.toString()];
                             }
                             return result;

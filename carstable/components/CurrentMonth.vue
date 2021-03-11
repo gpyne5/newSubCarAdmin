@@ -23,8 +23,7 @@ export default {
             this.calDate.setMonth(this.calDate.getMonth() + 1);
             this.workingMonth = this.calDate.toISOString().slice(0,7);
             this.$store.commit('changeMonth', this.workingMonth);
-            this.$store.commit('changeDate', 1);
-            console.log(this.daysCount)
+            this.$store.commit('changeDate');
             //this.$emit('change-month', this.workingMonth);
         },
         beforeMonth: function() {
@@ -32,7 +31,7 @@ export default {
             this.calDate.setMonth(this.calDate.getMonth() - 1);
             this.workingMonth = this.calDate.toISOString().slice(0,7);
             this.$store.commit('changeMonth', this.workingMonth);
-            this.$store.commit('changeDate', -1);
+            this.$store.commit('changeDate');
             //this.$emit('change-month', this.workingMonth);
         }
     },

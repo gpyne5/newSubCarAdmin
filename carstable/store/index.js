@@ -2,7 +2,8 @@ export const state = () => {
     return {
         cars: [],
         cale: [],
-        date: new Date().getMonth() + 1,
+        date: new Date(),
+        calDate: null,
         daysCount: 0,
         workingMonth: new Date().toISOString().slice(0,7),
         selectedDays: [], //選択した期間
@@ -37,13 +38,17 @@ export const mutations = {
         state.cellColor = payload
     },
     changeDate(state, payload) {
-        let now = state.date.getMonth() + payload
-        state.date.setMonth(now + payload)
-        let count = state.date
-        count.setDate(0)
-        console.log(count.getDate())
-        state.daysCount = count.getDate()
+        let splitWorkingM = state.workingMonth.split('-')
+        // new Date(parseInt(year, 10進数), parseInt(month, １０進数), 0)...monthは0~11で指定するわけだから
+        //   2021-03は2021-04になる
+        let date = new Date(parseInt(splitWorkingM[0], 10), parseInt(splitWorkingM[1], 10), 0).getDate()
+        state.daysCount = date
     },
+    setLoadDate(state, payload) {
+        let splitWorkingM = state.workingMonth.split('-')
+        let date = new Date(parseInt(splitWorkingM[0], 10), parseInt(splitWorkingM[1], 10), 0).getDate()
+        state.daysCount = date
+    }
     
     
 }

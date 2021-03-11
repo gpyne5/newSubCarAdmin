@@ -5,7 +5,7 @@
     <CarsCreate />
     <CarDelete v-bind:cars='cars' />
     <br>
-    <CarsTable v-bind:id="cars" v-bind:days="days(date)" v-bind:cale="cale" v-bind:workingmonth="workingMonth" v-on:change-month="changeMonth" />
+    <CarsTable v-bind:id="cars" v-bind:cale="cale" v-bind:workingmonth="workingMonth" v-on:change-month="changeMonth" />
     
   </div>
 </template>
@@ -26,24 +26,14 @@ export default {
      },
   data: function() {
     return {
-      date: new Date(),
       workingMonth: new Date().toISOString().slice(0,7),
-
-      days: function(date) {
-          console.log(date);
-          let now = date.getMonth();
-          date.setMonth(now + 1);
-          date.setDate(0);
-          //this.$store.commit('changeDate', date);
-          return date.getDate();
-      }
-
     }
   },
-  mounted: function() {
+  created: function() {
     this.$store.dispatch('getData');
+    this.$store.commit('setLoadDate', this.date)
   },
-  computed: mapState([ 'cars', 'cale', 'date', 'daysCount' ]),
+  computed: mapState([ 'cars', 'cale', 'daysCount', 'date' ]),
   methods: {
       changeMonth: function(e) {
           this.workingMonth = e;
