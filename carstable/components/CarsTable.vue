@@ -81,19 +81,24 @@ export default{
 </script>
 
 <style>
+.container {
+    width: 80%;
+}
+
 .td01:hover {
     background-color: rgba(0,123,255,0.6)
 }
 th {
-    width: 50px; border-bottom:1px solid gray;border-left:1px solid gray; overflow-wrap : break-word;text-align: center;
+    border-bottom:1px solid gray;border-left:1px solid gray; overflow-wrap : break-word;text-align: center;
 }
 
 td {
-    width: 50px; border-bottom:1px solid gray;border-left:1px solid gray;overflow-wrap : break-word;text-align: center;
+    border-bottom:1px solid gray;border-left:1px solid gray;overflow-wrap : break-word;text-align: center;
 }
 
 table {
-    table-layout:fixed;width: 100%;
+    table-layout:fixed;
+    width: 80%;
 }
 
 .post-form {
