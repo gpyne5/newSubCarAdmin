@@ -19,7 +19,6 @@ export const mutations = {
         for(let i=0,len=payload.data.cars.length;i<len;i++){
             state.cars.push(payload.data.cars[i])
         }
-        
         state.cale = payload.data.calender
     },
     changeMonth(state, payload) {
@@ -51,21 +50,24 @@ export const mutations = {
         let splitWorkingM = state.workingMonth.split('-')
         let date = new Date(parseInt(splitWorkingM[0], 10), parseInt(splitWorkingM[1], 10), 0).getDate()
         state.daysCount = date
+    },
+    makeCar(state, payload) {
+        state.cars.push(payload.data)
     }
     
     
 }
 
 export const actions = {
-    async getData(context){
-        await this.$axios.get('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook')
+    async getData(context, payload){
+        await this.$axios.get('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook/?y_m=' + payload)
             .then(res => {context.commit('setData', res); console.log(res)})
             .catch(e => console.log(e))
     },
     
     async postData(context, payload) {
-        await this.$axios.post('http://localhost/admin', payload)
-            .then(res => context.commit('setData',res))
+        await this.$axios.post('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook', payload)
+            .then(res => {console.log(res); context.commit('setData',res)})
             .catch(e => console.log(e))
     },
     async deleteData(context, payload){

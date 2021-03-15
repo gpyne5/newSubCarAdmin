@@ -2,7 +2,6 @@
 <div class="cars-create">
     <button type="button" v-on:click="onoff" class="btn btn-outline-primary">車両追加</button>
     <div v-show="flag" class="create">
-        <!--基本的にフォームは使わないと教えてもらった/もし使うのであればdefaultのactionを無効にする処理を書く-->
         車種名：<input name="car_name" v-model="carName" type="text"><br>
         ナンバー（4桁）：<input name="car_number" v-model="carNumber" type="number"><br>
         <input type="submit" id="submit" v-on:click="onclick" class="submit">
@@ -17,6 +16,7 @@ export default {
         return {
             carName: '',
             carNumber: null,
+            nowDate: new Date().toISOString().slice(0,7),
             postData: {
                 car_number: this.carNumber,
                 car_name: this.carName
@@ -29,6 +29,7 @@ export default {
             let data = {
                 'car_name': this.carName,
                 'car_number': this.carNumber,
+                'date': this.nowDate
             }
             console.log(e);
             this.$store.dispatch('postData', data);
