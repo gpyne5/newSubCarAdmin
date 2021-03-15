@@ -6,7 +6,8 @@
     <CarDelete v-bind:cars='cars' />
     <br>
     <CarsTable v-bind:id="cars" v-bind:cale="cale" v-bind:workingmonth="workingMonth" v-on:change-month="changeMonth" />
-
+{{cars}}<br>
+{{cale}}
     <!-- AWSの実験のため追加 -->
     <input type="text" v-model="car_name">
     <input type="number" v-model="car_number">
@@ -38,8 +39,8 @@ export default {
     }
   },
   created: function() {
-    this.$axios.get('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook')
-      .then(res => console.log('g'))
+    //this.$axios.get('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook')
+      //.then(res => console.log('g'))
     this.$store.dispatch('getData');
     this.$store.commit('setLoadDate', this.date)
   },

@@ -16,8 +16,11 @@ export const state = () => {
 
 export const mutations = {
     setData(state, payload) {
-        state.cars = payload.data[0],
-        state.cale = payload.data[1]
+        for(let i=0,len=payload.data.cars.length;i<len;i++){
+            state.cars.push(payload.data.cars[i])
+        }
+        
+        state.cale = payload.data.calender
     },
     changeMonth(state, payload) {
         state.workingMonth = payload
@@ -55,8 +58,8 @@ export const mutations = {
 
 export const actions = {
     async getData(context){
-        await this.$axios.get('http://localhost/admin')
-            .then(res => context.commit('setData', res))
+        await this.$axios.get('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook')
+            .then(res => {context.commit('setData', res); console.log(res)})
             .catch(e => console.log(e))
     },
     

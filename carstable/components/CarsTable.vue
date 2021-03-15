@@ -36,14 +36,14 @@ export default{
             makeCalender: function(car) {
                 let result = {};
                 for(let j=0,len=this.cale.length;j<len;j++){
-                    if(this.cale[j].y_m === this.workingMonth){
-                        if(this.cale[j].car_id === car.id){
-                            for(let i=1,len=this.daysCount+1;i<len;i++){
-                                result[i] = this.cale[j]['_' + i.toString()];
-                            }
-                            return result;
+                    
+                    if(this.cale[j].car_id === car.car_id){
+                        for(let i=1,len=this.daysCount+1;i<len;i++){
+                            result[i] = this.cale[j][i.toString()];
                         }
+                        return result;
                     }
+                    
                 }
             }
         };
