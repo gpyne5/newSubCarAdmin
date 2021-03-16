@@ -77,7 +77,7 @@ export const actions = {
     },
 
     async putData(context, payload){
-        await this.$axios.put('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook/?id=' + payload.id, payload.data)
+        await this.$axios.put('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook/id?id=' + payload.id, payload.data)
             .then(res => context.commit('setData',res))
             .catch(e => console.log(e))
     },
