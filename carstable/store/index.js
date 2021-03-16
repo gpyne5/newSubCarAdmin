@@ -49,8 +49,6 @@ export const mutations = {
         let date = new Date(parseInt(splitWorkingM[0], 10), parseInt(splitWorkingM[1], 10), 0).getDate()
         state.daysCount = date
     }
-    
-    
 }
 
 export const actions = {
@@ -59,7 +57,6 @@ export const actions = {
             .then(res => context.commit('setData', res))
             .catch(e => console.log(e))
     },
-    
     async postData(context, payload) {
         await this.$axios.post('http://localhost/admin', payload)
             .then(res => context.commit('setData',res))
@@ -70,7 +67,6 @@ export const actions = {
             .then(res => context.commit('setData',res))
             .catch(e => console.log(e))
     },
-
     async putData(context, payload){
         await this.$axios.put('http://localhost/admin/' + payload.id, payload.data)
             .then(res => context.commit('setData',res))
