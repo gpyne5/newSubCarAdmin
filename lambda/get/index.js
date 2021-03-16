@@ -5,7 +5,7 @@ exports.handler = async event => {
     const header =  {
         "Access-Control-Allow-Headers" : "Content-Type",
         "Access-Control-Allow-Origin": "http://localhost:3000",
-        "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT,DELETE"
     };
 
     //console.log(event.queryStringParameters.y_m)

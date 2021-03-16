@@ -60,7 +60,7 @@ export const mutations = {
 
 export const actions = {
     async getData(context, payload){
-        await this.$axios.get('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook/?y_m=' + payload)
+        await this.$axios.get('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook')
             .then(res => {context.commit('setData', res); console.log(res)})
             .catch(e => console.log(e))
     },
@@ -77,7 +77,7 @@ export const actions = {
     },
 
     async putData(context, payload){
-        await this.$axios.put('http://localhost/admin/' + payload.id, payload.data)
+        await this.$axios.put('https://hikbjihjp0.execute-api.ap-northeast-1.amazonaws.com/webhook/?id=' + payload.id, payload.data)
             .then(res => context.commit('setData',res))
             .catch(e => console.log(e))
     },

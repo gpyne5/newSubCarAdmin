@@ -6,7 +6,7 @@
                 <tr><th></th><th v-for="(i, index) in daysCount" v-bind:key="index">{{ i }}</th></tr>
             </thead>
             <tbody>
-                <tr v-for="(car, index) in cars" v-bind:id="car.id" v-bind:key="index"><th>{{ car.car_name }}</th>
+                <tr v-for="(car, index) in cars" v-bind:id="car.car_id" v-bind:key="index"><th>{{ car.car_name }}</th>
                 <td v-for="(reservation, key) in makeCalender(car)" v-on:mousedown="mousedown" v-bind:id="key" v-bind:key="key" class="td01" v-bind:style="cellColor">{{ reservation }}</td></tr>
             </tbody>
         </table>
@@ -55,11 +55,8 @@ export default{
             this.$store.commit('selectCar', e.path[1].id);
             //this.onClick[Number(e.target.id)] = e.target.outerText;
             this.carId.push(e.target.id)
-            if(this.carId[0] === e.target.id){
-                console.log('good')
-            }
-            console.log(this.onClick)
-            console.log(this.carId)
+            //console.log(this.onClick)
+
             if(this.carId.length === 2){
                 this.carId.sort();
                 this.pos = {
