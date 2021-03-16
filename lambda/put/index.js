@@ -9,40 +9,33 @@ const header =  {
 exports.handler = async event => {
 
     let data = JSON.parse(event.body);
-
-    console.log(typeof event.queryStringParameters['id'])
-    console.log(Number(event.queryStringParameters['id']))
-    console.log(Number(data.dateStart))
-    console.log(Number(data.dateEnd))
-    console.log(data.customerName)
-
+    const params = {
+        'TableName': 'calender',
+        'Key': {
+            'y_m': data.currentMonth,
+            'car_id': Number(event.queryStringParameters['id'])
+        },
+        'ExpressionAttributeNames': {
+            '#dateStart': Number(data.dateStart),
+            '#dateEnd': Number(data.dateEnd)
+        },
+        'ExpressionAttributeValues': {
+            ':customerName': data.customerName,
+        },
+        'UpdateExpression': 'SET #dateStart = :customerName, #dateEnd = :customerName'
+    }
+    await dynamo.update(params).promise()
     
     try {
-        const params = {
-            'TableName': 'calender',
-            'Key': {
-                'y_m': data.currentMonth,
-                'car_id': Number(event.queryStringParameters['id'])
-            },
-            'ExpressionAttributeNames': {
-                '#dateStart': Number(data.dateStart),
-                '#dateEnd': Number(data.dateEnd)
-            },
-            'ExpressionAttributeValues': {
-                ':customerName': data.customerName
-            },
-            'UpdateExpression': 'SET #dateStart = :customerName, #dateEnd = :customerName'
-        }
-        await dynamo.update(params).promise()
-
-        console.log(params)
+        console.log('成功しているよ')
         return {
             statusCode: 200,
             headers: header
         }
     } catch {
+        console.log('エラーだよ')
         return {
-            //statusCode: error.statusCode,
+            statusCode: error.statusCode,
             headers: header
         }
 
