@@ -1,75 +1,46 @@
-<template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        carstableTs
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+<<template>
+  <div id="app">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <CurrentMonth v-on:change-month="changeMonth" />
+    <CarsCreate />
+    <CarDelete v-bind:cars='cars' />
+    <br>
+    <CarsTable v-bind:id="cars" v-bind:cale="cale" v-bind:workingmonth="workingMonth" v-on:change-month="changeMonth" />
+    
   </div>
 </template>
 
-<script lang="ts">
+<script>
+
+import CurrentMonth from '../components/CurrentMonth.vue'
+import CarsCreate from '../components/CarsCreate.vue'
+import CarDelete from '../components/CarDelete.vue'
+import CarsTable from '../components/CarsTable.vue'
+import { mapState } from 'vuex'
 import Vue from 'vue'
 
-export default Vue.extend({})
+export default Vue.extend ({
+  template: { 
+    CarsTable,
+    CurrentMonth,
+    CarsCreate,
+    CarDelete,
+     },
+  data: function() {
+    return {
+      workingMonth: new Date().toISOString().slice(0,7),
+    }
+  },
+  created: function() {
+    this.$store.dispatch('getData');
+    this.$store.commit('setLoadDate', this.date)
+  },
+  computed: mapState([ 'cars', 'cale', 'daysCount', 'date' ]),
+  methods: {
+      changeMonth: function(e) {
+          this.workingMonth = e;
+      }
+  },
+})
+
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
